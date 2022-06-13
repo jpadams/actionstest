@@ -18,12 +18,12 @@ dagger.#Plan & {
 			}
 			version: {
 				name: "sh"
-				args: ["[[ \(client.env.GITHUB_REF) == \"refs/tags/\"* ]] && echo \(client.commands.version_pre.stdout) | sed -e 's/^v//'"]
+				args: ["-c", "[[ \(client.env.GITHUB_REF) == \"refs/tags/\"* ]] && echo \(client.commands.version_pre.stdout) \| sed -e 's/^v//'"]
 				stdout: string
 			}
 		}
 	}
 	actions: {
-		jeremyuniquetest: core.#Nop & {input: client.commands.version}
+		test: core.#Nop & {input: client.commands.version}
 	}
 }
