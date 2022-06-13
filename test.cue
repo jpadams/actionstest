@@ -12,16 +12,16 @@ dagger.#Plan & {
 		}
 		commands: {
 			version: {
-				name: "sh"
+				name: "bash"
 				args: ["-c", #"""
+					set -e
 					[[ \#(client.env.GITHUB_REF) =~ "refs/tags/" ]] && \
-					echo \#(client.env.GITHUB_REF) | sed 's/^refs\/tags\/v//' | tr -d "[:space:]"
+					echo \#(client.env.GITHUB_REF) | sed -e 's/^refs\/tags\/v//' | tr -d "[:space:]"
 					"""#]
-				stdout: string
 			}
 		}
 	}
 	actions: {
-		test: core.#Nop & {input: client.env.GITHUB_REF}
+		test: core.#Nop & {input: client.commands.version.stdout}
 	}
 }
