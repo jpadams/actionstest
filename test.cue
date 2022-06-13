@@ -24,6 +24,6 @@ dagger.#Plan & {
 		}
 	}
 	actions: {
-		test: core.#Nop & {input: client.commands.version}
+		jeremyuniquetest: core.#Nop & {input: client.commands.version}
 	}
 }
