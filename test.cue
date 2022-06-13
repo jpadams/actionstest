@@ -15,8 +15,16 @@ dagger.#Plan & {
 				name: "bash"
 				args: ["-c", #"""
 					set -e
-					[[ \#(client.env.GITHUB_REF) =~ "refs/tags/" ]] && \
-					echo \#(client.env.GITHUB_REF) | sed -e 's/^refs\/tags\/v//' | tr -d "[:space:]"
+					if [[ \#(client.env.GITHUB_REF) =~ "refs/tags/" ]]
+					then
+						echo \#(client.env.GITHUB_REF) | sed -e 's/^refs\/tags\/v//' | tr -d "[:space:]"
+					elif [[ \#(client.env.GITHUB_REF) =~ "refs/heads/" ]]
+					then
+						echo \#(client.env.GITHUB_REF) | sed -e 's/^refs\/heads\///' | tr -d "[:space:]"
+					elif [[ \#(client.env.GITHUB_REF) =~ "refs/pull/" ]]
+					then
+						echo \#(client.env.GITHUB_REF) | sed -e 's/^refs\/pull\///;s/\/merge$//' | tr -d "[:space:]"
+					fi
 					"""#]
 			}
 		}
