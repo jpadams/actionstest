@@ -13,7 +13,7 @@ dagger.#Plan & {
 		commands: {
 			version: {
 				name: "sh"
-				args: ["-c", "[[ \(client.env.GITHUB_REF) == \"refs/tags/\"* ]] && echo \(client.commands.version_pre.stdout) | sed -e 's/^v//'"]
+				args: ["-c", "[[ \(client.env.GITHUB_REF) == \"refs/tags/\"* ]] && echo \(client.env.GITHUB_REF) | sed -e 's/^v//'"]
 				stdout: string
 			}
 		}
