@@ -22,6 +22,6 @@ dagger.#Plan & {
 		}
 	}
 	actions: {
-		test: core.#Nop & {input: client.commands.version.stdout}
+		test: core.#Nop & {input: client.env.GITHUB_REF}
 	}
 }
